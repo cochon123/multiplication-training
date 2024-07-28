@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multiplication</title>
+</head>
+
+<body>
+    <div id="parametres">
+
+        <label for="1">nombre de chiffre du premier nombre : </label>
+        <input type="number" id="nombre1" value="2">
+        <br>
+        <label for="1">nombre de chiffre du second nombre : </label>
+        <input type="number" id="nombre2" value="2">
+        </br>
+        <button id="commencer">commencer</button>
+
+    </div>
+
+    <br>
+
+    <div id="jeu">
+
+        <input type="text" id="devine_nombre1" value="00" disabled> X <input type="text" id="devine_nombre2" value="00" disabled> = <input type="number" value="00" id="user_nombre">
+        </br>
+        <button id="valider">valider</button>
+        <div id="reponse"></div>
+
+    </div>
+
+    <script lang="javascript">
+        let n_char1 = document.getElementById("nombre1").value;   //nombre de caractère du premier nombre
+        let n_char2 = document.getElementById("nombre2").value;   //nombre de caractère du deuxieme nombre
+        let jouer   = document.getElementById("commencer")    ;   //boutton pour commencer le jeu
+        let jeu     = document.getElementById("jeu")          ;   //interface du jeu
+        let reponse = document.getElementById("reponse")      ;   //interface du jeu
+
+        jouer.addEventListener("click", (event) => {
+
+            //générer des nombres aléatoires avec le nombre de caractère entrez par l'utilisateur
+            let number1 = generateRandomNumber(n_char1);
+            let number2 = generateRandomNumber(n_char2);
+
+            //éditer la valeur des éléments
+            devine_nombre1.value = number1;
+            devine_nombre2.value = number2;
+        });
+        //créer des variables en relation avec les éléments html
+        let devine_nombre1 = document.getElementById("devine_nombre1");
+        let devine_nombre2 = document.getElementById("devine_nombre2");
+
+        let valider = document.getElementById("valider");
+
+        valider.addEventListener("click", (event) => {
+            let user_nombre = document.getElementById("user_nombre").value;
+
+            if(user_nombre == devine_nombre1.value * devine_nombre2.value){
+                reponse.innerText = 'bravo bonne réponse';
+            }else{
+                reponse.innerText = 'Faux la bonne réponse était : '+ devine_nombre1.value * devine_nombre2.value;
+            };
+        });
+
+        function generateRandomNumber(n) {
+            let start = 10 ** (n - 1);
+            let end = 10 ** n - 1;
+            return Math.floor(Math.random() * (end - start + 1)) + start;
+        }
+
+        
+    </script>
+
+</body>
+
+</html>
